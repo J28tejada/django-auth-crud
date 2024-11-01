@@ -42,8 +42,11 @@ def signup(request):
 
 @login_required
 def tasks(request):
-    tasks = Task.objects.filter(user=request.user, datecompleted__isnull=True)
-    return render(request, 'tasks.html', {'tasks': tasks})
+    try:
+        tasks = Task.objects.filter(user=request.user, datecompleted__isnull=True)
+        return render(request, 'tasks.html', {'tasks': tasks})
+    except Exception as e:
+        return render(request, 'error.html', {'error': str(e)})
 
 @login_required
 def tasks_completed(request):
