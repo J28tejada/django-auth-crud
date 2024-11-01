@@ -91,13 +91,35 @@ def complete_task(request, task_id):
         task.datecompleted = timezone.now()
         task.save()
         return redirect('tasks')
+    
+@login_required
+def trash(request):
+    tasks = Task.objects.filter(user=request.user, is_deleted=True)
+    return render(request, 'trash.html', {'tasks': tasks})
 
 @login_required   
 def delete_task(request, task_id):
-    task = get_object_or_404(Task, pk=task_id, user=request.user)
+    task = get_object_or_404(Task, pk=task_id, user=request.user, is_deleted=False)
+    if request.method == 'POST':
+        task.is_deleted = True
+        task.save()
+        return redirect('tasks')
+
+@login_required
+def delete_task_permanently(request, task_id):
+    task = get_object_or_404(Task, pk=task_id, user=request.user, is_deleted=True)
     if request.method == 'POST':
         task.delete()
-        return redirect('tasks')
+        return redirect('trash')
+    
+@login_required
+def restore_task(request, task_id):
+    task = get_object_or_404(Task, pk=task_id, user=request.user, is_deleted=True)
+    if request.method == 'POST':
+        task.is_deleted = False
+        task.save()
+        return redirect('trash')
+
 
 @login_required
 def signout(request):

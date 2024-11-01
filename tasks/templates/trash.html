@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Papelera</h1>
+<ul>
+    {% for task in tasks %}
+        <li>{{ task.title }}
+            <form action="{% url 'restore_task' task.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Restaurar</button>
+            </form>
+            <form action="{% url 'delete_task_permanently' task.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Eliminar definitivamente</button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

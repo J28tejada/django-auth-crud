@@ -16,7 +16,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-                <a href="/" class="nav-link">Home</a>
+                <a href="{% url 'Home' %}" class="nav-link">Home</a>
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
@@ -26,17 +26,17 @@
                 <a href="{% url 'task_completed' %}" class="nav-link">Tasks completed</a>
             </li>
             <li class="nav-item">
-                <a href="/tasks/create/" class="nav-link">Create task</a>
+                <a href="{% url 'create_task' %}" class="nav-link">Create task</a>
             </li>
             <li class="nav-item">
-                <a href="/logout" class="nav-link">Logout</a>
+                <a href="{% url 'logout' %}" class="nav-link">Logout</a>
             </li>
             {% else %}
             <li class="nav-item">
-                <a href="/signup" class="nav-link">Signup</a>
+                <a href="{% url 'Signup' %}" class="nav-link">Signup</a>
             </li>
             <li class="nav-item">
-                <a href="/signin" class="nav-link">Signin</a>
+                <a href="{% url 'signin' %}" class="nav-link">Signin</a>
             </li>
             {% endif %}
         </ul>

@@ -29,7 +29,9 @@ urlpatterns = [
     path('tasks/<int:task_id>/', views.task_detail, name='task_detail'),
     path('tasks/<int:task_id>/complete', views.complete_task, name='complete_task'),
     path('tasks/<int:task_id>/delete', views.delete_task, name='delete_task'),
+    path('trash/', views.trash, name='trash'),
+    path('delete_task/<int:task_id>/permanently', views.delete_task_permanently, name='delete_task_permanently'),
+    path('restore_task/<int:task_id>/', views.restore_task, name='restore_task'),
     path('logout/', views.signout, name='logout'),
     path('signin/', views.signin, name='signin'),
 ]
- 
